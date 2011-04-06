@@ -9,19 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110406091016) do
+ActiveRecord::Schema.define(:version => 20110406094701) do
+
+  create_table "albums", :force => true do |t|
+    t.string   "name",       :limit => 32, :null => false
+    t.integer  "user_id",                  :null => false
+    t.datetime "created_at"
+  end
 
   create_table "comments", :force => true do |t|
     t.string   "post",       :limit => 32, :null => false
     t.integer  "picture_id",               :null => false
     t.integer  "user_id",                  :null => false
     t.datetime "created_at",               :null => false
-  end
-
-  create_table "directories", :force => true do |t|
-    t.string   "name",       :limit => 32, :null => false
-    t.integer  "user_id",                  :null => false
-    t.datetime "created_at"
   end
 
   create_table "friends", :force => true do |t|
@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(:version => 20110406091016) do
   end
 
   create_table "pictures", :force => true do |t|
-    t.string   "pic",          :limit => 32, :null => false
-    t.integer  "user_id",                    :null => false
-    t.integer  "directory_id",               :null => false
-    t.datetime "created_at",                 :null => false
+    t.string   "pic",        :limit => 32, :null => false
+    t.integer  "user_id",                  :null => false
+    t.integer  "album_id",                 :null => false
+    t.datetime "created_at",               :null => false
   end
 
   create_table "todos", :force => true do |t|

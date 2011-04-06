@@ -10,7 +10,19 @@
   <% end %>
 
   
-<%= form_tag :action => 'search', :controller => 'user' %>
+<% form_tag ({:action => 'search', :controller => 'user'}) do %>
 <p><label for="Search People">People</label>:
   <%= text_field 'query', 'name' %></p>
 <p><%= submit_tag "Search" %> </p>
+<% end %>
+
+<% @albums.each do |a| %>
+<p>  <%= link_to a.name, {:controller => 'album', :action => 'show', :id => a.id} %></p>
+<% end %>
+
+<% form_tag ({:action => 'create', :controller => 'album'}) do %>
+<p><label for="New Abum">New Album</label>:
+  <%= text_field 'album', 'name' %></p>
+<%= text_field 'album', 'user_id', {:value => @user.id, :hidden => true} %>
+<p><%= submit_tag "Create" %> </p>
+<% end %>

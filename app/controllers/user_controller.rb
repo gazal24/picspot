@@ -8,6 +8,7 @@ class UserController < ApplicationController
     @friends2 = Friend.all(:conditions => {:user2 => @user.id}).collect{|f| f.user1}    
     @friends = @friends1 + @friends2
     p @friends
+    @albums = @user.albums
   end
 
   def search

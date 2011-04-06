@@ -1,0 +1,16 @@
+<h2><%= @album.name %></h2>
+<% if @pics.blank? %>
+<p> Empty album </p>
+<% else %>
+<% @pics.each do |p| %>
+<p><%= link_to p.pic, {:action => 'show', :controller => 'picture', :id => p.id}%></p>
+<% end %>
+<% end %>
+
+<% form_tag ({:action => 'create', :controller => 'picture'}) do %>
+<p><label for="Upload Picture">Upload a Picture</label>:
+  <%= text_field 'picture', 'pic' %></p>
+<%= text_field 'picture', 'user_id', {:value => @user.id, :hidden => true} %>
+<%= text_field 'picture', 'album_id', {:value => @album.id, :hidden => true} %>
+<p><%= submit_tag "Create" %> </p>
+<% end %>
