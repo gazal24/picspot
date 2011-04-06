@@ -1,0 +1,20 @@
+<%= form_tag :action => 'create' %>
+<p><label for="todo_post">Todo : </label>
+  <%= text_area 'post', 'post', {:cols => 30, :rows => 2} %></p>
+<p>&nbsp<label for="todo_user"> u r ? </label>
+  <%= text_field 'post', 'user', {:size => 10, :value => "anonymous"} %>
+  | <%= submit_tag "Post" %> </p>
+
+<div>
+<br>
+  <p>---------------------------------------------</p>
+<% if @posts.blank? %>
+<p> Empty </p>
+<% else %>
+<% @posts.each do |p| %>
+<p><font color = "green"><%= p.user %> : </font> 
+  <%= link_to "del", {:action => 'delete', :id => p.id, :controller => 'todo'} %>
+<%= p.post %></p>
+<% end %>
+<% end %>
+</div>

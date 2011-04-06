@@ -1,0 +1,6 @@
+<%= form_tag :action => 'new' %>
+<p><label for="todo_post">Todo : </label>
+  <%= text_area 'post', 'post', {:cols => 30, :rows => 2} %></p>
+<p>&nbsp<label for="todo_user"> u r ? </label>
+  <%= text_field 'post', 'user', {:size => 10, :value => "anonymous"} %>
+  | <%= submit_tag "Post" %> </p>
