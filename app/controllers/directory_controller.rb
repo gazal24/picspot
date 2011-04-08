@@ -1,2 +1,0 @@
-class DirectoryController < ApplicationController
-end
