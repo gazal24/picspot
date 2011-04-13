@@ -3,13 +3,25 @@
 <p>Location : <%= @user.location %></p>
 <p>Birthday : <%= @user.birthday %></p>
 <p>Sex : <%= @user.sex %></p>
+
+<% if !@friends.blank? %>
 <h2>Friends</h2>
 <% @friends.each do |f| %>
-  <% friend = User.find(f) %>
-<p>  <%= link_to friend.name, {:controller => 'user', :action => 'show', :id => f} %></p>
-  <% end %>
+<% u = User.find(f) %>
+<p>  <%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id} %></p>
+<% end %>
+<% end %>
 
-  
+
+<% if !@request.blank? %>
+<h5>People who wants to follow you</h5>
+<% @request.each do |r| %>
+<% u = User.find(r) %>
+<p>  <%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id} %>
+  <%= link_to "Accept", {:controller => 'user', :action => 'accept', :id => u.id} %></p>
+<% end %>
+<% end %>
+
 <% form_tag ({:action => 'search', :controller => 'user'}) do %>
 <p><label for="Search People">People</label>:
   <%= text_field 'query', 'name' %></p>

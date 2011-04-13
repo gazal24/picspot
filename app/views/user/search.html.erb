@@ -1,4 +1,5 @@
 <% @search.blank? %>
 <% @search.each do |s| %>
-<p> <%= link_to s.name, {:action => 'show', :controller => 'user', :id => s.id} %></p>
+<p> <%= link_to s.name, {:action => 'show', :controller => 'user', :id => s.id} %>
+| <%= link_to "send follow request", {:action => 'follow', :controller => 'user', :id => s.id} %></p>
 <% end %>

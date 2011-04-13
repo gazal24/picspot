@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110406094701) do
+ActiveRecord::Schema.define(:version => 20110412152355) do
 
   create_table "albums", :force => true do |t|
     t.string   "name",       :limit => 32, :null => false
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20110406094701) do
   create_table "friends", :force => true do |t|
     t.integer "user1",    :null => false
     t.integer "user2",    :null => false
-    t.boolean "accepted", :null => false
+    t.integer "accepted", :null => false
   end
 
   create_table "pictures", :force => true do |t|
@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(:version => 20110406094701) do
 
   create_table "users", :force => true do |t|
     t.string "name",     :limit => 32, :null => false
-    t.string "location", :limit => 32, :null => false
+    t.string "location", :limit => 32
     t.string "sex",      :limit => 1,  :null => false
     t.date   "birthday"
+    t.string "email",    :limit => 32, :null => false
+    t.string "password", :limit => 32, :null => false
   end
 
 end

@@ -6,7 +6,7 @@ class PictureController < ApplicationController
     @picture = Picture.new(params[:picture])
     p "############"
     p @picture
-    @album = Album.find(params[:picture][:user_id])
+    @album = Album.find(params[:picture][:album_id])
     if @picture.save
       redirect_to :action => 'show', :controller => 'album' , :id => @album.id
     else

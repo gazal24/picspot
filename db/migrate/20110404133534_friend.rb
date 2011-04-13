@@ -3,7 +3,7 @@ class Friend < ActiveRecord::Migration
     create_table :friends do |t|
       t.column :user1, :integer, :null => false
       t.column :user2, :integer, :null => false            
-      t.column :accepted, :boolean, :null => false
+      t.column :accepted, :integer, :null => false
     end
   end
   

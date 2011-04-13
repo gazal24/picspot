@@ -3,30 +3,73 @@ class UserController < ApplicationController
     @user = User.find(:all)
   end
   def show
+    flash[:warning] = "a flash msg"
     @user = User.find(params[:id])
-    @friends1 = Friend.all(:conditions => {:user1 => @user.id}).collect{|f| f.user2}
-    @friends2 = Friend.all(:conditions => {:user2 => @user.id}).collect{|f| f.user1}    
+
+    #this is for searching the existing friends of this use
+    @friends1 = Friend.all(:conditions => {:user1 => @user.id, :accepted => 1}).collect{|f| f.user2}
+    @friends2 = Friend.all(:conditions => {:user2 => @user.id, :accepted => 1}).collect{|f| f.user1}
     @friends = @friends1 + @friends2
-    p @friends
+    
+    #this is for searching the people who has send follow request to this user
+    @request = Friend.all(:conditions => {:user2 => @user.id, :accepted => 0}).collect{|r| r.user1}
+
     @albums = @user.albums
   end
-
+  
   def search
     @search = User.find_all_by_name(params[:query]["name"])
   end
-
-  def new
-    @user = User.new
+  
+  def follow
+    @f = Friend.new(:user1 => session[:user].id, :user2 => params[:id], :accepted => 0)
+    if @f.save
+      redirect_to :action => 'show', :id => session[:user].id
+    else
+      redirect_to :action => 'search'
+    end
   end
+
+  def accept
+    p "111111111111111"
+    p params[:id]
+    p session[:user].id
+    @friend = Friend.all(:conditions => {:user1 => params[:id], :user2 => session[:user].id, :accepted => 0})
+    @friend = Friend.find(@friend.to_param.to_i)
+    p @friend
+    p "111111111111111"    
+    if !@friend.blank?
+      @friend.accepted = 1
+      if @friend.save
+        redirect_to :action => 'show', :id => session[:user].id
+      else
+        redirect_to :action => 'search'
+      end
+    end
+  end
+  
   def create
     @user = User.new(params[:user])
     if @user.save
-      redirect_to :action => 'show', :id => @user.id
+      session[:user] = User.authenticate(@user.email, @user.password)
+      #      flash[:message] = "Signup successful"
+      redirect_to :action => 'show', :id => session[:user].id
     else
-      @subjects = Subject.find(:all)
-      render :action => 'new'
+      redirect_to :controller => 'homepage', :action => 'index'
     end
   end
+  
+  def login
+    @user = User.authenticate(params[:user][:email], params[:user][:password])
+    if @user.blank?
+      redirect_to :action => 'index', :controller => 'homepage'
+    else
+      # flash[:message]  = "Login successful"
+      session[:user] = @user
+      redirect_to :action => 'show', :controller => 'user', :id => @user.id
+    end
+  end
+  
   def edit
     @book = Book.find(params[:id])
     @subjects = Subject.find(:all)
@@ -43,6 +86,56 @@ class UserController < ApplicationController
   def delete
     Book.find(params[:id]).destroy
     redirect_to :action => 'list'
+  end
+  
+  #======== L O G I N =======================
+
+  
+  def signup
+    @user = User.new(@params[:user])
+    if request.post?  
+      if @user.save
+        session[:user] = User.authenticate(@user.login, @user.password)
+        flash[:message] = "Signup successful"
+        redirect_to :action => "welcome"          
+      else
+        flash[:warning] = "Signup unsuccessful"
+      end
+    end
+  end
+  
+
+  def logout
+    session[:user] = nil
+    flash[:message] = 'Logged out'
+    redirect_to :action => 'login'
+  end
+
+  def forgot_password
+    if request.post?
+      u= User.find_by_email(params[:user][:email])
+      if u and u.send_new_password
+        flash[:message]  = "A new password has been sent by email."
+        redirect_to :action=>'login'
+      else
+        flash[:warning]  = "Couldn't send password"
+      end
+    end
+  end
+
+  def change_password
+    @user=session[:user]
+    if request.post?
+      @user.update_attributes(:password=>params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
+      if @user.save
+        flash[:message]="Password Changed"
+      end
+    end
+  end
+
+  def welcome
+  end
+  def hidden
   end
 
 end
