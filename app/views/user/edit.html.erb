@@ -1,18 +1,25 @@
-<h1>Welcome New usera </h1>
-<h2>register here</h2>
-<%= form_tag :action => 'create' %>
-<p><label for="user_name">name</label>:
+<%= form_tag :action => 'update', :controller => 'user' %>
+<p><label for="user_name">Name</label>:
   <%= text_field 'user', 'name' %></p>
+
+<p><label for="user_email">Email</label>:
+  <%= text_field 'user', 'email' %></p>
+
+<p><label for="user_password">Password</label>:
+  <%= text_field 'user', 'password' %></p>
+
+<p><label for="user_confirm_password">Re-Password</label>:
+  <%= text_field 'check', 'repassword' %></p>
+
 <p><label for="user_location">Location</label>:
   <%= text_field 'user', 'location' %></p>
 
 <p><label for="user_sex">sex</label>
   <%= radio_button :user, :sex, :m %> Male
   <%= radio_button :user, :sex, :f %> Female  
-
+  
 <p><label for="user_birthday">Budday</label>  
   <%=date_select "user", "birthday", :start_year => 1910, 
   :order => [:day, :month, :year],
   :end_year => 2010%></p>
-<p><%= submit_tag "Create" %> </p>
-<%= link_to 'Back', {:action => 'show'} %>
+<p><%= submit_tag "Save Changes" %> </p>

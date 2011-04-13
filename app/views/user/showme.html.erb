@@ -1,0 +1,44 @@
+<p>ID : <%= @user.id %></p>
+<p>Name : <%= @user.name %></p>
+<p>Location : <%= @user.location %></p>
+<p>Birthday : <%= @user.birthday %></p>
+<p>Sex : <%= @user.sex %></p>
+
+<p align = right> 
+  <%= link_to "Edit", {:controller => 'user', :action => 'edit'}%>
+</p>
+
+<% if !@friends.blank? %>
+<h4>Friends</h4>
+<% @friends.each do |f| %>
+<% u = User.find(f) %>
+<p>  <%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id} %></p>
+<% end %>
+<% end %>
+
+
+<% if !@request.blank? %>
+<h5>People who wants to follow you</h5>
+<% @request.each do |r| %>
+<% u = User.find(r) %>
+<p>  <%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id} %>
+  <%= link_to "Accept", {:controller => 'user', :action => 'accept', :id => u.id} %></p>
+<% end %>
+<% end %>
+
+<% form_tag ({:action => 'search', :controller => 'user'}) do %>
+<p><label for="Search People">People</label>:
+  <%= text_field 'query', 'name' %></p>
+<p><%= submit_tag "Search" %> </p>
+<% end %>
+
+<% @albums.each do |a| %>
+<p>  <%= link_to a.name, {:controller => 'album', :action => 'show', :id => a.id} %></p>
+<% end %>
+
+<% form_tag ({:action => 'create', :controller => 'album'}) do %>
+<p><label for="New Abum">New Album</label>:
+  <%= text_field 'album', 'name' %></p>
+<%= text_field 'album', 'user_id', {:value => @user.id, :hidden => true} %>
+<p><%= submit_tag "Create" %> </p>
+<% end %>

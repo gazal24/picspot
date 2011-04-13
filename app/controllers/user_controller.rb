@@ -2,8 +2,9 @@ class UserController < ApplicationController
   def list
     @user = User.find(:all)
   end
+
+  #THIS IS TO VIEW ANY USERS PROFILE. PUT ONLY SPECIFIC DETAILS HERE
   def show
-    flash[:warning] = "a flash msg"
     @user = User.find(params[:id])
 
     #this is for searching the existing friends of this use
@@ -11,10 +12,22 @@ class UserController < ApplicationController
     @friends2 = Friend.all(:conditions => {:user2 => @user.id, :accepted => 1}).collect{|f| f.user1}
     @friends = @friends1 + @friends2
     
+    @albums = @user.albums
+  end
+  
+  #THIS IS MY PROFILE HOMEPAGE. PUT ALL THE IMPORTANT DETAILS HERE
+  def showme
+    @user = User.find(session[:user].id)
+    
+    #this is for searching the existing friends of this use
+    @friends1 = Friend.all(:conditions => {:user1 => @user.id, :accepted => 1}).collect{|f| f.user2}
+    @friends2 = Friend.all(:conditions => {:user2 => @user.id, :accepted => 1}).collect{|f| f.user1}
+    @friends = @friends1 + @friends2
+    
     #this is for searching the people who has send follow request to this user
     @request = Friend.all(:conditions => {:user2 => @user.id, :accepted => 0}).collect{|r| r.user1}
-
-    @albums = @user.albums
+    
+    @albums = @user.albums    
   end
   
   def search
@@ -31,13 +44,8 @@ class UserController < ApplicationController
   end
 
   def accept
-    p "111111111111111"
-    p params[:id]
-    p session[:user].id
     @friend = Friend.all(:conditions => {:user1 => params[:id], :user2 => session[:user].id, :accepted => 0})
     @friend = Friend.find(@friend.to_param.to_i)
-    p @friend
-    p "111111111111111"    
     if !@friend.blank?
       @friend.accepted = 1
       if @friend.save
@@ -66,23 +74,23 @@ class UserController < ApplicationController
     else
       # flash[:message]  = "Login successful"
       session[:user] = @user
-      redirect_to :action => 'show', :controller => 'user', :id => @user.id
+      redirect_to :action => 'showme', :controller => 'user'
     end
   end
   
   def edit
-    @book = Book.find(params[:id])
-    @subjects = Subject.find(:all)
+    @user = session[:user]
   end
+
   def update
-    @book = Book.find(params[:id])
-    if @book.update_attributes(params[:book])
-      redirect_to :action => 'show', :id => @book
+    @user = session[:user]
+    if @user.update_attributes(params[:user])
+      redirect_to :action => 'showme', :controller => 'user'
     else
-      @subjects = Subject.find(:all)
       render :action => 'edit'
     end
   end
+  
   def delete
     Book.find(params[:id]).destroy
     redirect_to :action => 'list'
