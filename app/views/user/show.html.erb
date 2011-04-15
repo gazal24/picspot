@@ -1,25 +1,16 @@
-<p align = center> 
-  <%= link_to "Go to Own Profile homepage", {:controller => 'user', :action => 'showme'}%>
-</p>
+<%= render :partial => 'user/userinfo' %>
 
-<p>ID : <%= @user.id %></p>
-<p>Name : <%= @user.name %></p>
-<p>Location : <%= @user.location %></p>
-<p>Birthday : <%= @user.birthday %></p>
-<p>Sex : <%= @user.sex %></p>
+<% if !@FriendRequestSend.blank? %>
+Waiting Confirmation <%= link_to "Cancel Request", {:action => 'unfollow', :controller => 'user', :id => @FriendRequestSend.id} %></p>
 
-<% if !@friends.blank? %>
-<h4>Friends</h4>
-<% @friends.each do |f| %>
-<% u = User.find(f) %>
-<p>  <%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id} %></p>
-<% end %>
-<% end %>
+<% elsif !@FriendRequestReceived.blank? %>
+<% u = User.find(@FriendRequestReceived.user1) %>
+<%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id},{:style=>'color:blue'} %>
+| <%= link_to "Accept", {:controller => 'user', :action => 'accept', :id => @FriendRequestReceived.id} %>
+| <%= link_to "Reject", {:controller => 'user', :action => 'unfollow', :id => @FriendRequestReceived.id},{:style=>'color:red'} %></p>
+<% else %>
 
-<% form_tag ({:action => 'search', :controller => 'user'}) do %>
-<p><label for="Search People">People</label>:
-  <%= text_field 'query', 'name' %>
-  <%= submit_tag "Search" %> </p>
+<%= link_to "send fasdollow request", {:action => 'follow', :controller => 'user', :id => @user.id} %></p>
 <% end %>
 
 <% if @albums.blank? %>
