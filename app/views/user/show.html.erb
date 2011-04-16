@@ -1,17 +1,28 @@
 <%= render :partial => 'user/userinfo' %>
 
-<% if !@FriendRequestSend.blank? %>
-Waiting Confirmation <%= link_to "Cancel Request", {:action => 'unfollow', :controller => 'user', :id => @FriendRequestSend.id} %></p>
+| <% if @FriendRequest.blank? %>
+<%= link_to "send follow request", {:action => 'follow', :controller => 'user', :id => @user.id} %>
 
-<% elsif !@FriendRequestReceived.blank? %>
-<% u = User.find(@FriendRequestReceived.user1) %>
-<%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id},{:style=>'color:blue'} %>
-| <%= link_to "Accept", {:controller => 'user', :action => 'accept', :id => @FriendRequestReceived.id} %>
-| <%= link_to "Reject", {:controller => 'user', :action => 'unfollow', :id => @FriendRequestReceived.id},{:style=>'color:red'} %></p>
-<% else %>
+<% elsif @FriendRequest.accepted == 0 %>
 
-<%= link_to "send fasdollow request", {:action => 'follow', :controller => 'user', :id => @user.id} %></p>
+<% if @FriendRequest.user1.to_s == session[:user].id.to_s %>
+Waiting Confirmation <%= link_to "Cancel Request", {:action => 'unfollow', :controller => 'user', :id => @FriendRequest.id} %></p>
+
+<% elsif @FriendRequest.user2.to_s == session[:user].id.to_s %>
+ <%= link_to "Accept", {:controller => 'user', :action => 'accept', :id => @FriendRequest.id} %>
+| <%= link_to "Reject", {:controller => 'user', :action => 'unfollow', :id => @FriendRequest.id},{:style=>'color:red'} %></p>
 <% end %>
+
+<% elsif @FriendRequest.accepted == 1%>
+<%= link_to "Unfollow", {:controller => 'user', :action => 'unfollow', :id => @FriendRequest.id} %>
+<% end %>
+</td>
+
+<td valign = top>
+<%= render :partial => 'user/userfriend' %>
+</td>
+</tr></table>
+
 
 <% if @albums.blank? %>
 <p> No Albums :-( </p>

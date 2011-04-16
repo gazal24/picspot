@@ -15,8 +15,21 @@ class AlbumController < ApplicationController
     @pics = @album.pictures
     @user = @album.user
   end
+  def edit 
+    @album = Album.find(params[:id])
+    @user = @album.user
+  end
+  def update
+    @album = Album.find(params[:album]["id"])
+    if @album.update_attributes(params[:album])
+      redirect_to :action => 'show', :controller => 'album', :id => @album.id
+    else
+      render :action => 'edit'
+    end
+  end
   def delete 
     Album.find(params[:id]).destroy
     redirect_to :action => 'show', :controller => 'user', :id => params[:uid]
   end
+
 end

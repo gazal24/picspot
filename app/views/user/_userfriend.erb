@@ -1,0 +1,7 @@
+<% if !@friends.blank? %>
+   <h4>Friends [<%= @friends.count %>] </h4><br>
+<% @friends.each do |f| %>
+<% u = User.find(f) %>
+<p>  <%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id} %></p>
+<% end %>
+<% end %>

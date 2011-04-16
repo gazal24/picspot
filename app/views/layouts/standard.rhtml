@@ -5,17 +5,39 @@
     <meta http-equiv="Content-Type" content="text/html;.
 					     charset=iso-8859-1" />
     <meta http-equiv="Content-Language" content="en-us" />
-    <title>Library Info System</title>
+    <title>picSpot</title>
     <%= stylesheet_link_tag "style" %>
   </head>
   <body id="library">
     <div id="container">
       <div id="header">
 	<h1>picSpot</h1>
-	<h3>Share your Image here</h3>
+	<table width = 100%>
+	  <tr>
+	    <td><h3>picSPOT ||||| PICSpot</h3></td>
+	    <td align="right">
+	      <% if !session[:user].blank? %>
+	      | <%= session[:user].name %>
+	      | <%= link_to "HOME", {:controller => 'user', :action => 'showme'}%>
+	      | <%= link_to "Edit", {:controller => 'user', :action => 'edit'}%>
+	      | <%= link_to "Logout", {:controller => 'user', :action => 'logout'}%>
+	      | <% end %>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td align = "right" colspan = 2>
+	      <% form_tag ({:action => 'search', :controller => 'user'}) do %>
+	      <p><label>People</label>:
+		<%= text_field 'query', 'name', {:size => 20}%>
+		<%= submit_tag "Search" %> </p>
+	      <% end %>
+	    </td>
+	  </tr>
+	</table>
       </div>
-      <div id="content">
-	<%= yield -%>
+      <div id="content" align = "CENTER">
+	<%= notifications %>
+	<%= yield %>
       </div>
       <div id="sidebar"></div>
     </div>

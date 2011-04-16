@@ -1,0 +1,6 @@
+<% form_tag ({:action => 'update', :controller => 'album'}) do %>
+<p><label for="New Abum">Name : </label>
+  <%= text_field 'album', 'name' %>
+<%= text_field 'album', 'id', {:value => @album.id, :hidden => true} %>
+<%= submit_tag "Update" %> </p>
+<% end %>

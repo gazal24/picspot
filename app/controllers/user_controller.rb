@@ -17,8 +17,7 @@ class UserController < ApplicationController
     @albums = @user.albums
     
     # @isFriend = Friend.find(:all, :conditions => ["(user1 = #{session[:user].id} and user2 = #{params[:id]})"]).first
-    @FriendRequestSend = Friend.find(:all, :conditions => ["(user1 = #{session[:user].id} and user2 = #{params[:id]} and accepted = 0)"]).first
-    @FriendRequestReceived = Friend.find(:all, :conditions => ["(user1 = #{params[:id]} and user2 = #{session[:user].id}  and accepted = 0)"]).first        
+    @FriendRequest = Friend.find(:all, :conditions => ["(user1 = #{session[:user].id} and user2 = #{params[:id]}) OR (user1 = #{params[:id]} and user2 = #{session[:user].id})"]).first
   end
   
   #THIS IS MY PROFILE HOMEPAGE. PUT ALL THE IMPORTANT DETAILS HERE
@@ -31,8 +30,7 @@ class UserController < ApplicationController
     @friends = @friends1 + @friends2
     
     #this is for searching the people who has send follow request to this user
-    @request = Friend.all(:conditions => {:user2 => @user.id, :accepted => 0}).collect{|r| r.user1}
-    
+    @FriendRequest = Friend.find(:all, :conditions => ["(user2 = #{session[:user].id} and accepted = 0)"])
     @albums = @user.albums    
   end
   
@@ -105,25 +103,12 @@ class UserController < ApplicationController
     @f.save
     flash[:success] = "Accepted"
     redirect_to :action => 'showme', :controller => 'user'
-#     @friend = Friend.all(:conditions => {:user1 => params[:id], :user2 => session[:user].id, :accepted => 0})
-#     @friend = Friend.find(@friend.to_param.to_i)
-#     if !@friend.blank?
-#       @friend.accepted = 1
-#       if @friend.save
-#         redirect_to :action => 'show', :id => session[:user].id
-#       else
-#         redirect_to :action => 'search'
-#       end
-#     end
   end
   
   def unfollow
-    @f = Friend.find(params[:id])
-    user2 = @f.user2
-    @f.destroy
-    @f.save
-    redirect_to :action => 'show', :controller => 'user', :id => user2 
-    flash[:notice] = "Follow request cancel"
+    Friend.find(params[:id]).destroy
+    flash[:error] = "Follow cancel"
+    redirect_to :action => 'showme', :controller => 'user'
   end
   
   #======== L O G I N =======================
