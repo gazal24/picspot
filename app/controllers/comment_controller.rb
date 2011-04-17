@@ -4,13 +4,11 @@ class CommentController < ApplicationController
   end
   def create
     @comment = Comment.new(params[:comment])
-    p "#######################"
-    p @comment
-    @pic = Picture.find(params[:comment][:picture_id])
+    @picture = Picture.find(params[:comment][:picture_id])
     if @comment.save
-      redirect_to :action => 'show', :controller => 'picture' , :id => @pic.id
+      redirect_to :action => 'show', :controller => 'pictures' , :id => @picture.id
     else
-      render :action => 'show', :controller => 'album', :id => @pic.id
+      render :action => 'show', :controller => 'album', :id => @picture.id
     end
   end
   

@@ -1,6 +1,6 @@
 <table width = 100%>
   <tr>
-     <td width = 70% height = 80><h2 align = left><%= @user.name %></h2>
+     <td width = 70% height = 80><h2><%= link_to @user.name, :action => 'show', :controller => 'user', :id => @user.id %></h2>
 	Lives in <span class="userinfo"><%= @user.location %> </span>
 	| Sex <span class="userinfo"> 
 	  <% if @user.sex == "m" %>

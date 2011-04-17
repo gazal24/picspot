@@ -1,17 +1,31 @@
-<p>
-  <b>Album:</b>
-  <%=h @picture.album_id %>
-</p>
+<%= render :partial => 'user/userinfo' %>
+</td>
+<td valign = top width = 30% style="padding-top:20px">
+  <%= render :partial => 'user/userfriend' %>
+</td>
+</tr></table>
 
-<p>
-  <b>User:</b>
-  <%=h @picture.user_id %>
-</p>
 
-<p>
-  <b>Avatar:</b>
-  <%= image_tag @picture.photo.url(:small) %>
-</p>
 
-<%= link_to 'Edit', edit_picture_path(@picture) %> |
-<%= link_to 'Back', pictures_path %>
+<p>Album : <%= @album.name %></p>
+<p align = center><a href><%= image_tag @picture.photo.url(:large) %></a></p>
+
+
+<br><br><p>-----------------------------------------------------</p>
+<% if @comments.blank?%>
+<p>no comments :P</p>
+<% else %>
+<% @comments.each do |c| %>
+<p><%= link_to User.find(c.user_id).name, {:action => 'show', :controller => 'user', :id => c.user_id} %>
+  <%= c.post %></p>
+<% end %>
+<% end %>
+
+<% form_tag ({:action => 'create', :controller => 'comment'}) do %>
+<p><label for="comment_post">comment: </label>
+  <%= text_area 'comment', 'post', {:rows => 1, :cols => 10} %>
+  <%= text_field 'comment', 'user_id', {:hidden => true, :value => session[:user].id} %>
+  <%= text_area 'comment', 'picture_id', {:hidden => true, :value => @picture.id} %>
+</p>
+<p><%= submit_tag "Comment" %> </p>
+<% end %>

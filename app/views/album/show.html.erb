@@ -7,7 +7,7 @@
 
 
 
-<h2><%= @album.name %></h2>
+<h2><%= @album.name%>[<%= @album.pictures.count %>]</h2>
 <% if @user.id.to_s == session[:user].id.to_s %>
 <div align = "right">
   | <%= link_to "Edit", {:action => 'edit', :controller => 'album', :id => @album.id}%>
@@ -15,26 +15,22 @@
   | </div>
 <% end %>
 
-<% if @pics.blank? %>
-<p> Empty album </p>
-<% else %>
-<% @pics.each do |picture| %>
-<%= image_tag picture.photo %>
 
+<p><% @picture.each do |@p| %>
+  <%= link_to image_tag(@p.photo.url(:small)), :controller => 'pictures', :action => 'show', :id => @p.id %>
+  <% end %>
+</p>
+
+
+<% if @user.id.to_s == session[:user].id.to_s %>
+<% form_for :picture, @picture, :url => { :controller => 'pictures', :action => 'create' }, :html => { :multipart => true } do |f| %> 
+<%= f.error_messages %>
+
+<%= f.text_field :album_id, {:value => @album.id, :hidden => true} %>
+<%= f.text_field :user_id, {:value => session[:user].id, :hidden => true}%>
+<p>
+  <%= f.file_field :photo %>
+  <%= f.submit "Upload" %>
 </p>
 <% end %>
 <% end %>
-
-<% if @user.id.to_s == session[:user].id.to_s %>
-<% form_tag ({:action => 'create', :controller => 'picture'}, :html => { :multipart => true }) do %>
-<p><label for="Upload Picture">Upload Pictures</label>:
-  <%= file_field 'picture', :photo %>
-  <%= text_field 'picture', 'user_id', {:value => @user.id, :hidden => true} %>
-  <%= text_field 'picture', 'album_id', {:value => @album.id, :hidden => true} %>
-  <%= submit_tag "Create" %> </p>
-<% end %>
-<% end %>
-
-<!-- <% form_for :picture, :html => { :multipart => true } do |f| %> -->
-<!-- <p><%= f.file_field :photo%></p> -->
-<!-- <% end %> -->
