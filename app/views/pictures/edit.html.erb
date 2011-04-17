@@ -1,0 +1,20 @@
+<h1>Editing picture</h1>
+
+<% form_for(@picture) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :album_id %><br />
+    <%= f.text_field :album_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @picture %> |
+<%= link_to 'Back', pictures_path %>
