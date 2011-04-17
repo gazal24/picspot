@@ -1,10 +1,15 @@
 <table width = 100%>
   <tr>
-    <td width = 70%><p><h2 align = left><%= @user.name %></h2> </p>
-      <p align = left><%= @user.sex %>
-      <p align = left>Location : <%= @user.location %> </p>
-      <p align = left>
-	Birthday : <%= @user.birthday %>
+     <td width = 70% height = 80><h2 align = left><%= @user.name %></h2>
+	Lives in <span class="userinfo"><%= @user.location %> </span>
+	| Sex <span class="userinfo"> 
+	  <% if @user.sex == "m" %>
+	  <%= "Male"%>
+	  <% else %>
+	  <%= "Female" %>
+	  <% end %>
+	</span>
+	| Born on <span class="userinfo"> <%= @user.birthday %></span>
 	
 <!-- Note: </p> should be put at show User pages.
   Its been done intentionally to put 'follow/accept/reject options in proper place'-->

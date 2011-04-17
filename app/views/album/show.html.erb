@@ -1,24 +1,40 @@
 <%= render :partial => 'user/userinfo' %>
+</td>
+<td valign = top width = 30% style="padding-top:20px">
+  <%= render :partial => 'user/userfriend' %>
+</td>
+</tr></table>
+
+
 
 <h2><%= @album.name %></h2>
+<% if @user.id.to_s == session[:user].id.to_s %>
 <div align = "right">
   | <%= link_to "Edit", {:action => 'edit', :controller => 'album', :id => @album.id}%>
   | <%= link_to "Delete", {:action => 'delete', :controller => 'album', :id => @album.id, :uid => @user.id} %>
   | </div>
+<% end %>
+
 <% if @pics.blank? %>
 <p> Empty album </p>
 <% else %>
-<% @pics.each do |p| %>
-<p><%= link_to p.pic, {:action => 'show', :controller => 'picture', :id => p.id}%>
+<% @pics.each do |picture| %>
+<%= image_tag picture.photo %>
+
 </p>
 <% end %>
 <% end %>
 
-<% form_tag ({:action => 'create', :controller => 'picture'}) do %>
-<p><label for="Upload Picture">Upload Picture</label>:
-  <%= text_field 'picture', 'pic' %>
+<% if @user.id.to_s == session[:user].id.to_s %>
+<% form_tag ({:action => 'create', :controller => 'picture'}, :html => { :multipart => true }) do %>
+<p><label for="Upload Picture">Upload Pictures</label>:
+  <%= file_field 'picture', :photo %>
   <%= text_field 'picture', 'user_id', {:value => @user.id, :hidden => true} %>
   <%= text_field 'picture', 'album_id', {:value => @album.id, :hidden => true} %>
   <%= submit_tag "Create" %> </p>
 <% end %>
+<% end %>
 
+<!-- <% form_for :picture, :html => { :multipart => true } do |f| %> -->
+<!-- <p><%= f.file_field :photo%></p> -->
+<!-- <% end %> -->

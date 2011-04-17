@@ -1,0 +1,16 @@
+<% if @FriendRequest.blank? %>
+<%= link_to "send follow request", {:action => 'follow', :controller => 'user', :id => @user.id} %>
+
+<% elsif @FriendRequest.accepted == 0 %>
+
+<% if @FriendRequest.user1.to_s == session[:user].id.to_s %>
+[Waiting Confirmation] <%= link_to "Cancel Request", {:action => 'unfollow', :controller => 'user', :id => @FriendRequest.id} %></p>
+
+<% elsif @FriendRequest.user2.to_s == session[:user].id.to_s %>
+ <%= link_to "Accept", {:controller => 'user', :action => 'accept', :id => @FriendRequest.id} %>
+| <%= link_to "Reject", {:controller => 'user', :action => 'unfollow', :id => @FriendRequest.id},{:style=>'color:red'} %></p>
+<% end %>
+
+<% elsif @FriendRequest.accepted == 1%>
+<%= link_to "Unfollow", {:controller => 'user', :action => 'unfollow', :id => @FriendRequest.id} %>
+<% end %>

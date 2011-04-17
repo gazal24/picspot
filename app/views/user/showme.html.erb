@@ -1,7 +1,10 @@
 <%= render :partial => 'user/userinfo' %>
+</td>
+<td valign = top width = 30% style="padding-top:20px">
+  <%= render :partial => 'user/userfriend' %>
 
 <% if !@FriendRequest.blank? %>
-<h5>People who wants to follow you</h5>
+<h5>Pending Requests</h5>
 <% @FriendRequest.each do |fr| %>
 <% u = User.find(fr.user1) %>
 <p>  <%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id},{:style=>'color:blue'} %>
@@ -11,19 +14,20 @@
 <% end %>
 <% end %>
 
+</td>
+</tr></table>
+
 <% @albums.each do |a| %>
 <p>  <%= link_to a.name, {:controller => 'album', :action => 'show', :id => a.id} %></p>
 <% end %>
 
+<tr><td>
 <% form_tag ({:action => 'create', :controller => 'album'}) do %>
 <p align = left><label for="New Abum">New Album</label>:
   <%= text_field 'album', 'name',{:size => 20} %>
 <%= text_field 'album', 'user_id', {:value => @user.id, :hidden => true} %>
 <%= submit_tag "Create" %> </p>
 <% end %>
-</td>
+</td></tr>
 
-<td valign = top width = 30%>
-<%= render :partial => 'user/userfriend' %>
-</td>
 </tr></table>

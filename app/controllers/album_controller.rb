@@ -31,5 +31,4 @@ class AlbumController < ApplicationController
     Album.find(params[:id]).destroy
     redirect_to :action => 'show', :controller => 'user', :id => params[:uid]
   end
-
 end

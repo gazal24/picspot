@@ -1,7 +1,21 @@
+<%= render :partial => 'user/userinfo' %>
+</td>
+<td valign = top width = 30% style="padding-top:20px">
+  <%= render :partial => 'user/userfriend' %>
+</td>
+</tr></table>
+
+
+
 <p>Usr : <%= @user.name %></p>
 <p>Album : <%= @album.name %></p>
-<p>Picture : <%= @pic.pic %></p>
+<% for picture in @pics %>
+<p><%= image_tag(picture.name, :size => "50x50", :id=>picture.id.to_s, :alt => "Images") %>
+<% end %>
 
+<% form_for :picture, :html => { :multipart => true } do |f| %>
+<p><%= f.file_field :photo%></p>
+<% end %>
 
 <br><br><p>-----------------------------------------------------</p>
 <% if @comments.blank?%>
@@ -18,7 +32,7 @@
   <%= text_area 'comment', 'post', {:rows => 1, :cols => 10} %>
   <!--   IMPORTANT:: change n pass the user.id of user in session -->
   <%= text_field 'comment', 'user_id', {:hidden => true, :value => session[:user].id} %>
-<%= text_area 'comment', 'picture_id', {:hidden => true, :value => @pic.id} %>
+  <%= text_area 'comment', 'picture_id', {:hidden => true, :value => @pic.id} %>
 </p>
 <p><%= submit_tag "Create" %> </p>
 <% end %>

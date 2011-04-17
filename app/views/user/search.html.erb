@@ -1,4 +1,7 @@
-<% @search.blank? %>
+<br><h2 align = "center"> Search Result </h2>
+<br><% @search.blank? %>
 <% @search.each do |s| %>
-<p> <%= link_to s.name, {:action => 'show', :controller => 'user', :id => s.id} %>
-<% end %>
+<p><%= link_to s.name, {:action => 'show', :controller => 'user', :id => s.id} %>
+| from <span class="userinfo"><%= s.location %> </span>
+  <% end %>
+  

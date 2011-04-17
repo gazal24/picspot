@@ -11,35 +11,38 @@
   <body id="library">
     <div id="container">
       <div id="header">
-	<h1>picSpot</h1>
-	<table width = 100%>
-	  <tr>
-	    <td><h3>picSPOT ||||| PICSpot</h3></td>
-	    <td align="right">
-	      <% if !session[:user].blank? %>
-	      | <%= session[:user].name %>
-	      | <%= link_to "HOME", {:controller => 'user', :action => 'showme'}%>
-	      | <%= link_to "Edit", {:controller => 'user', :action => 'edit'}%>
-	      | <%= link_to "Logout", {:controller => 'user', :action => 'logout'}%>
-	      | <% end %>
+	<table width = 100% >
+	  <tr><td>
+	      <h1>picSpot</h1>
 	    </td>
-	  </tr>
-	  <tr>
-	    <td align = "right" colspan = 2>
+	    <td align = "right" valign = bottom>
+	      <% if !session[:user].blank? %>
 	      <% form_tag ({:action => 'search', :controller => 'user'}) do %>
 	      <p><label>People</label>:
 		<%= text_field 'query', 'name', {:size => 20}%>
 		<%= submit_tag "Search" %> </p>
 	      <% end %>
+	      <% end %>	      
+	    </td>
+	  <tr  bgcolor = #CCFFFF>
+	    <td><h3>picSPOT ||||| PICSpot</h3></td>
+	    <td align="right">
+	      <% if !session[:user].blank? %>
+	      | <%= session[:user].name %>
+	      | <%= link_to "Home", {:controller => 'user', :action => 'showme'}%>
+	      | <%= link_to "Edit", {:controller => 'user', :action => 'edit'}%>
+	      | <%= link_to "Logout", {:controller => 'user', :action => 'logout'}%>
+	      | <% end %>
 	    </td>
 	  </tr>
-	</table>
-      </div>
-      <div id="content" align = "CENTER">
-	<%= notifications %>
-	<%= yield %>
-      </div>
+	  </table>
+	</div>
+	<div id="content" align = "CENTER">
+	  <%= notifications %></div>
+	<div id="content" align = "LEFT">	
+	  <%= yield %>
+	</div>
       <div id="sidebar"></div>
-    </div>
+      </div>
   </body>
 </html>
