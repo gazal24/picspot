@@ -27,8 +27,27 @@ class AlbumController < ApplicationController
       render :action => 'edit'
     end
   end
+
   def delete 
-    Album.find(params[:id]).destroy
-    redirect_to :action => 'show', :controller => 'user', :id => params[:uid]
+    @album = Album.find(params[:id])
+    @pictures = @album.pictures
+    
+    @pictures.each do |@p|
+      @comments = @p.comments
+      @comments.each do |@c|
+        @c.destroy
+        @c.save
+      end
+    end      
+    
+    pic_count = @pictures.count
+    (0...pic_count).each do |i|
+      @album.pictures[i].destroy
+    end
+    
+    @album.destroy
+    @album.save
+    flash[:error] = "Album deleted"
+    redirect_to :action => 'showme', :controller => 'user'
   end
 end

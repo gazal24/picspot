@@ -9,7 +9,7 @@
 <% u = User.find(fr.user1) %>
 <p>  <%= link_to u.name, {:controller => 'user', :action => 'show', :id => u.id},{:style=>'color:blue'} %>
   | <%= link_to "Accept", {:controller => 'user', :action => 'accept', :id => fr.id} %>
-  | <%= link_to "Reject", {:controller => 'user', :action => 'reject', :id => fr.id},{:style=>'color:red'} %>
+  | <%= link_to "Reject", {:controller => 'user', :action => 'unfollow', :id => fr.id},{:style=>'color:red'} %>
 </p>
 <% end %>
 <% end %>

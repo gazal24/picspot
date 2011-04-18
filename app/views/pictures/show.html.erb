@@ -7,8 +7,13 @@
 
 
 
-<p>Album : <%= @album.name %></p>
-<p align = center><a href><%= image_tag @picture.photo.url(:large) %></a></p>
+<h4><p>Album : <%= link_to @album.name, :controller => 'album', :action => 'show', :id => @album.id  %>
+    <% if @user.id.to_s == session[:user].id.to_s %>
+  <p align = right>  <%= link_to "Delete", :controller => 'pictures', :action => 'delete', :id => @picture.id %></p>
+  <% end %>
+  </h4>
+
+<p align = center><%= image_tag @picture.photo.url, {:style => 'width:500px'} %></p>
 
 
 <br><br><p>-----------------------------------------------------</p>
@@ -16,16 +21,20 @@
 <p>no comments :P</p>
 <% else %>
 <% @comments.each do |c| %>
-<p><%= link_to User.find(c.user_id).name, {:action => 'show', :controller => 'user', :id => c.user_id} %>
-  <%= c.post %></p>
+<p><%= link_to c.user.name, {:action => 'show', :controller => 'user', :id => c.user.id} %>
+:  <%= c.post %>
+<% if c.user.id.to_s == session[:user].id.to_s or @picture.user.id.to_s == session[:user].id.to_s %>
+<%= link_to "del", {:controller => 'comment', :action => 'delete', :id => c.id}, {:style => 'color:red'} %>
+<% end %>
+at <%= c.created_at %>
+</p>
 <% end %>
 <% end %>
 
 <% form_tag ({:action => 'create', :controller => 'comment'}) do %>
-<p><label for="comment_post">comment: </label>
-  <%= text_area 'comment', 'post', {:rows => 1, :cols => 10} %>
+<p>Comment:
+  <%= text_area 'comment', 'post', {:rows => 2, :cols => 20} %>
   <%= text_field 'comment', 'user_id', {:hidden => true, :value => session[:user].id} %>
-  <%= text_area 'comment', 'picture_id', {:hidden => true, :value => @picture.id} %>
-</p>
-<p><%= submit_tag "Comment" %> </p>
+  <%= text_field 'comment', 'picture_id', {:hidden => true, :value => @picture.id} %>
+  <%= submit_tag "Post" %> </p>
 <% end %>

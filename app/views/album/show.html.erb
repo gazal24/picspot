@@ -17,7 +17,7 @@
 
 
 <p><% @picture.each do |@p| %>
-  <%= link_to image_tag(@p.photo.url(:small)), :controller => 'pictures', :action => 'show', :id => @p.id %>
+  <%= link_to (image_tag @p.photo.url, {:style => 'width:150px'}), {:controller => 'pictures', :action => 'show', :id => @p.id} %>
   <% end %>
 </p>
 

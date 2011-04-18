@@ -51,24 +51,6 @@ class UserController < ApplicationController
     end
   end
   
-  def login
-    @user = User.authenticate(params[:user][:email], params[:user][:password])
-    if @user.blank?
-      flash[:error] = "Wrong Email-Password"
-      redirect_to :action => 'index', :controller => 'homepage'
-    else
-      flash[:success]  = "Login successful"
-      session[:user] = @user
-      redirect_to :action => 'showme', :controller => 'user'
-    end
-  end
-  
-  def logout
-    session[:user] = nil
-    flash[:notice] = 'Logged out'
-    redirect_to :action => 'index', :controller => 'homepage'
-  end
-
   def edit
     @user = session[:user]
   end
@@ -111,9 +93,27 @@ class UserController < ApplicationController
     redirect_to :action => 'showme', :controller => 'user'
   end
   
+
   #======== L O G I N =======================
 
+  def login
+    @user = User.authenticate(params[:user][:email], params[:user][:password])
+    if @user.blank?
+      flash[:error] = "Wrong Email-Password"
+      redirect_to :action => 'index', :controller => 'homepage'
+    else
+      flash[:success]  = "Login successful"
+      session[:user] = @user
+      redirect_to :action => 'showme', :controller => 'user'
+    end
+  end
   
+  def logout
+    session[:user] = nil
+    flash[:notice] = 'Logged out'
+    redirect_to :action => 'index', :controller => 'homepage'
+  end
+
   def signup
     @user = User.new(@params[:user])
     if request.post?  
@@ -127,20 +127,6 @@ class UserController < ApplicationController
     end
   end
   
-
-  
-  def forgot_password
-    if request.post?
-      u= User.find_by_email(params[:user][:email])
-      if u and u.send_new_password
-        flash[:message]  = "A new password has been sent by email."
-        redirect_to :action=>'login'
-      else
-        flash[:warning]  = "Couldn't send password"
-      end
-    end
-  end
-
   def change_password
     @user=session[:user]
     if request.post?

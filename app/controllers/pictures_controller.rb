@@ -40,8 +40,10 @@ class PicturesController < ApplicationController
     end
   end
   
-  def destroy
-    @picture = Picture.find(params[:id])
-    @picture.destroy
+  def delete
+    album_id = Picture.find(params[:id]).album.id
+    Picture.find(params[:id]).destroy
+    flash[:error] = "Image deleted"
+    redirect_to :action => 'show', :controller => 'album', :id => album_id
   end
 end
