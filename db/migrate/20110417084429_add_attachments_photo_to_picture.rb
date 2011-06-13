@@ -5,7 +5,7 @@ class AddAttachmentsPhotoToPicture < ActiveRecord::Migration
     add_column :pictures, :photo_file_size, :integer
     add_column :pictures, :photo_updated_at, :datetime
   end
-
+  
   def self.down
     remove_column :pictures, :photo_file_name
     remove_column :pictures, :photo_content_type

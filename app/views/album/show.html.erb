@@ -26,8 +26,8 @@
 <% form_for :picture, @picture, :url => { :controller => 'pictures', :action => 'create' }, :html => { :multipart => true } do |f| %> 
 <%= f.error_messages %>
 
-<%= f.text_field :album_id, {:value => @album.id, :hidden => true} %>
-<%= f.text_field :user_id, {:value => session[:user].id, :hidden => true}%>
+<%= f.hidden_field :album_id, {:value => @album.id} %>
+<%= f.hidden_field :user_id, {:value => session[:user].id}%>
 <p>
   <%= f.file_field :photo %>
   <%= f.submit "Upload" %>

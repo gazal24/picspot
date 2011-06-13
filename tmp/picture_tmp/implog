@@ -1,0 +1,29 @@
+this was created while -------->>>>> ./script/generate scaffold picture album_id:integer user_id:integer 
+
+exists  app/models/
+      exists  app/controllers/
+      exists  app/helpers/
+      create  app/views/pictures
+      exists  app/views/layouts/
+      exists  test/functional/
+      exists  test/unit/
+      exists  public/stylesheets/
+      create  app/views/pictures/index.html.erb
+      create  app/views/pictures/show.html.erb
+      create  app/views/pictures/new.html.erb
+      create  app/views/pictures/edit.html.erb
+      create  app/views/layouts/pictures.html.erb
+      create  public/stylesheets/scaffold.css
+      create  app/controllers/pictures_controller.rb
+      create  test/functional/pictures_controller_test.rb
+      create  app/helpers/pictures_helper.rb
+       route  map.resources :pictures
+  dependency  model
+      exists    app/models/
+      exists    test/unit/
+      exists    test/fixtures/
+      create    app/models/picture.rb
+      create    test/unit/picture_test.rb
+      create    test/fixtures/pictures.yml
+      exists    db/migrate
+      create    db/migrate/20110417083940_create_pictures.rb

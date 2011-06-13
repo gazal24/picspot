@@ -2,12 +2,15 @@ class AlbumController < ApplicationController
   def new
     @album = Album.new
   end
+
   def create
     @album = Album.new(params[:album])
     if @album.save
+      flash[:notice] = "Album Created Successfully"
       redirect_to :action => 'show', :controller => 'album' , :id => @album.id
     else
-      render :action => 'show', :controller => 'user'
+      flash[:error] = "Wrong Entry"
+      redirect_to :action => 'showme', :controller => 'user'
     end
   end
   def show

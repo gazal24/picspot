@@ -1,0 +1,39 @@
+<table width = 40% align = right>
+<tr>
+  <td><label for="user_name">Name</label>:</td>
+  <td>  <%= text_field 'user', 'name' %></td>
+</tr>
+
+<tr>
+  <td><label for="user_email">Email</label>:</td>
+  <td>  <%= text_field 'user', 'email' %></td>
+</tr>
+
+<tr>
+  <td><label for="user_password">Password</label>:</td>
+  <td>  <%= password_field 'user', 'password' %></td>
+</tr>
+
+<tr>
+  <td><label for="user_confirm_password">Repassword</label>:</td>
+  <td>  <%= password_field 'check', 'repassword' %></td>
+</tr>
+
+<tr>
+  <td><label for="user_location">Location</label>:</td>
+  <td>  <%= text_field 'user', 'location' %></td>
+</tr>
+
+<tr>
+  <td> <label for="user_sex">Sex</label>
+  <td>  <%= radio_button :user, :sex, :m %> Male
+    <%= radio_button :user, :sex, :f %> Female  </td>
+</tr>
+
+<tr>
+  <td><label for="user_birthday">Budday</label>  </td>
+  <td>  <%=date_select "user", "birthday", :start_year => 1910, 
+  :order => [:day, :month, :year],
+    :end_year => 2010%></td>
+</tr>
+

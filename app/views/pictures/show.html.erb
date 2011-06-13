@@ -9,32 +9,64 @@
 
 <h4><p>Album : <%= link_to @album.name, :controller => 'album', :action => 'show', :id => @album.id  %>
     <% if @user.id.to_s == session[:user].id.to_s %>
-  <p align = right>  <%= link_to "Delete", :controller => 'pictures', :action => 'delete', :id => @picture.id %></p>
+  <p align = right>  
+    <%= link_to "Delete", :controller => 'pictures', :action => 'delete', :id => @picture.id %>
+    | <%= link_to "Edit", :controller => 'pictures', :action => 'edit', :id => @picture.id %>    
+  </p>
   <% end %>
   </h4>
 
-<p align = center><%= image_tag @picture.photo.url, {:style => 'width:500px'} %></p>
-
-
-<br><br><p>-----------------------------------------------------</p>
+<div>
+<table  align = center width = 100%> <tr>
+    <td valign = center align = center> <h4>PREVIOUS</h4>
+      <%= link_to (image_tag @previous_picture.photo.url, {:style => 'width:150px'}), {:controller => 'pictures', :action => 'show', :id => @previous_picture.id} %>
+    </td>
+    <td valign = center align = center>
+      <%= link_to (image_tag @picture.photo.url, {:style => 'width:500px'}), {:controller => 'pictures', :action => 'show', :id => @picture.id} %>
+    </td>
+    <td valign = center align = center> <h4>NEXT</h4>
+      <%= link_to (image_tag @next_picture.photo.url, {:style => 'width:150px'}), {:controller => 'pictures', :action => 'show', :id => @next_picture.id} %>
+    </td>
+<p align = center>
+  <% @picture.caption %>
+</p>
+  </tr>
+<tr>
+  <td></td>
+<td>
+<br><br>
+<p>
+---------------------------------------------------------------------------------------------------------------------------
+</p>
+<table width = 100% >
 <% if @comments.blank?%>
-<p>no comments :P</p>
+<p>no comments</p>
 <% else %>
 <% @comments.each do |c| %>
-<p><%= link_to c.user.name, {:action => 'show', :controller => 'user', :id => c.user.id} %>
-:  <%= c.post %>
-<% if c.user.id.to_s == session[:user].id.to_s or @picture.user.id.to_s == session[:user].id.to_s %>
-<%= link_to "del", {:controller => 'comment', :action => 'delete', :id => c.id}, {:style => 'color:red'} %>
-<% end %>
-at <%= c.created_at %>
-</p>
-<% end %>
-<% end %>
+<tr>
 
+<td><%= link_to c.user.name, {:action => 'show', :controller => 'user', :id => c.user.id} %>
+:  <%= c.post %>
+</td>
+
+<td align = right><font color = "grey"><%= c.created_at.to_date %></font>
+<% if c.user.id.to_s == session[:user].id.to_s or @picture.user.id.to_s == session[:user].id.to_s %>
+| <%= link_to "remove", {:controller => 'comment', :action => 'delete', :id => c.id}, {:style => 'color:red'} %>
+<% end %>
+</td></tr>
+
+<% end %>
+<% end %>
+</table>
+<br>
 <% form_tag ({:action => 'create', :controller => 'comment'}) do %>
 <p>Comment:
-  <%= text_area 'comment', 'post', {:rows => 2, :cols => 20} %>
+  <%= text_area 'comment', 'post', {:rows => 2, :cols => 30, :style => 'vertical-align:middle'} %>
   <%= text_field 'comment', 'user_id', {:hidden => true, :value => session[:user].id} %>
   <%= text_field 'comment', 'picture_id', {:hidden => true, :value => @picture.id} %>
   <%= submit_tag "Post" %> </p>
 <% end %>
+</td>
+  <td></td>
+</tr></table>
+</div>

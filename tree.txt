@@ -1,0 +1,326 @@
+.
+|-- README
+|-- Rakefile
+|-- app
+|   |-- controllers
+|   |   |-- album_controller.rb
+|   |   |-- application.rb
+|   |   |-- comment_controller.rb
+|   |   |-- friend_controller.rb
+|   |   |-- homepage_controller.rb
+|   |   |-- pictures_controller.rb
+|   |   |-- todo_controller.rb
+|   |   `-- user_controller.rb
+|   |-- helpers
+|   |   |-- album_helper.rb
+|   |   |-- application_helper.rb
+|   |   |-- comment_helper.rb
+|   |   |-- friend_helper.rb
+|   |   |-- homepage_helper.rb
+|   |   |-- pictures_helper.rb
+|   |   |-- todo_helper.rb
+|   |   `-- user_helper.rb
+|   |-- models
+|   |   |-- album.rb
+|   |   |-- comment.rb
+|   |   |-- friend.rb
+|   |   |-- picture.rb
+|   |   |-- todo.rb
+|   |   `-- user.rb
+|   `-- views
+|       |-- album
+|       |   |-- edit.html.erb
+|       |   `-- show.html.erb
+|       |-- comment
+|       |-- friend
+|       |-- homepage
+|       |   `-- index.html.erb
+|       |-- layouts
+|       |   |-- _error.erb
+|       |   |-- _notice.erb
+|       |   |-- _success.erb
+|       |   |-- pictures.html.erb
+|       |   `-- standard.rhtml
+|       |-- pictures
+|       |   |-- edit.html.erb
+|       |   |-- index.html.erb
+|       |   |-- new.html.erb
+|       |   `-- show.html.erb
+|       |-- todo
+|       |   |-- index.html.erb
+|       |   `-- new.html.erb
+|       `-- user
+|           |-- _follow.erb
+|           |-- _form.erb
+|           |-- _userfriend.erb
+|           |-- _userinfo.erb
+|           |-- edit.html.erb
+|           |-- search.html.erb
+|           |-- show.html.erb
+|           `-- showme.html.erb
+|-- config
+|   |-- boot.rb
+|   |-- database.yml
+|   |-- environment.rb
+|   |-- environments
+|   |   |-- development.rb
+|   |   |-- production.rb
+|   |   `-- test.rb
+|   |-- initializers
+|   |   |-- inflections.rb
+|   |   |-- mime_types.rb
+|   |   `-- new_rails_defaults.rb
+|   `-- routes.rb
+|-- datadump
+|-- db
+|   |-- migrate
+|   |   |-- 20110403171208_users.rb
+|   |   |-- 20110404114443_add_birthday.rb
+|   |   |-- 20110404133146_create_friends.rb
+|   |   |-- 20110404133534_friend.rb
+|   |   |-- 20110405234316_todo.rb
+|   |   |-- 20110406091016_comments.rb
+|   |   |-- 20110406092135_create_comments.rb
+|   |   |-- 20110406094701_create_albums.rb
+|   |   |-- 20110412152355_emailandpass.rb
+|   |   |-- 20110416234120_add_attachments_photo_to_event.rb
+|   |   |-- 20110417083940_create_pictures.rb
+|   |   |-- 20110417084429_add_attachments_photo_to_picture.rb
+|   |   |-- 20110418063918_add_attachments_photo_to_picture.rb
+|   |   `-- temp
+|   `-- schema.rb
+|-- doc
+|   `-- README_FOR_APP
+|-- lib
+|   `-- tasks
+|-- log
+|   |-- development.log
+|   |-- production.log
+|   |-- server.log
+|   `-- test.log
+|-- plugin
+|   |-- README
+|   |-- Rakefile
+|   |-- app
+|   |   |-- controllers
+|   |   |   `-- application.rb
+|   |   |-- helpers
+|   |   |   `-- application_helper.rb
+|   |   |-- models
+|   |   `-- views
+|   |       `-- layouts
+|   |-- config
+|   |   |-- boot.rb
+|   |   |-- database.yml
+|   |   |-- environment.rb
+|   |   |-- environments
+|   |   |   |-- development.rb
+|   |   |   |-- production.rb
+|   |   |   `-- test.rb
+|   |   |-- initializers
+|   |   |   |-- inflections.rb
+|   |   |   |-- mime_types.rb
+|   |   |   `-- new_rails_defaults.rb
+|   |   `-- routes.rb
+|   |-- db
+|   |-- doc
+|   |   `-- README_FOR_APP
+|   |-- lib
+|   |   `-- tasks
+|   |-- log
+|   |   |-- development.log
+|   |   |-- production.log
+|   |   |-- server.log
+|   |   `-- test.log
+|   |-- public
+|   |   |-- 404.html
+|   |   |-- 422.html
+|   |   |-- 500.html
+|   |   |-- dispatch.cgi
+|   |   |-- dispatch.fcgi
+|   |   |-- dispatch.rb
+|   |   |-- favicon.ico
+|   |   |-- images
+|   |   |   `-- rails.png
+|   |   |-- index.html
+|   |   |-- javascripts
+|   |   |   |-- application.js
+|   |   |   |-- controls.js
+|   |   |   |-- dragdrop.js
+|   |   |   |-- effects.js
+|   |   |   `-- prototype.js
+|   |   |-- robots.txt
+|   |   `-- stylesheets
+|   |-- script
+|   |   |-- about
+|   |   |-- console
+|   |   |-- dbconsole
+|   |   |-- destroy
+|   |   |-- generate
+|   |   |-- performance
+|   |   |   |-- benchmarker
+|   |   |   |-- profiler
+|   |   |   `-- request
+|   |   |-- plugin
+|   |   |-- process
+|   |   |   |-- inspector
+|   |   |   |-- reaper
+|   |   |   `-- spawner
+|   |   |-- runner
+|   |   `-- server
+|   |-- test
+|   |   |-- fixtures
+|   |   |-- functional
+|   |   |-- integration
+|   |   |-- test_helper.rb
+|   |   `-- unit
+|   |-- tmp
+|   |   |-- cache
+|   |   |-- pids
+|   |   |-- sessions
+|   |   `-- sockets
+|   `-- vendor
+|       `-- plugins
+|-- public
+|   |-- 404.html
+|   |-- 422.html
+|   |-- 500.html
+|   |-- dispatch.cgi
+|   |-- dispatch.fcgi
+|   |-- dispatch.rb
+|   |-- favicon.ico
+|   |-- images
+|   |   |-- edited.jpg
+|   |   |-- edited.png
+|   |   |-- homepage.jpg
+|   |   `-- rails.png
+|   |-- index.html
+|   |-- javascripts
+|   |   |-- application.js
+|   |   |-- controls.js
+|   |   |-- dragdrop.js
+|   |   |-- effects.js
+|   |   `-- prototype.js
+|   |-- robots.txt
+|   |-- stylesheets
+|   |   |-- scaffold.css
+|   |   `-- style.css
+|   `-- system
+|       `-- photos
+|           |-- 1
+|           |   `-- original
+|           |       |-- DSC05377.JPG
+|           |       `-- DSC05378.JPG
+|           |-- 11
+|           |   `-- original
+|           |       `-- hyundaiI10222.jpg
+|           |-- 12
+|           |   `-- original
+|           |       `-- DSC05376.JPG
+|           |-- 13
+|           |   `-- original
+|           |       `-- DSC05378.JPG
+|           |-- 14
+|           |   `-- original
+|           |       `-- DSC05380.JPG
+|           |-- 15
+|           |   `-- original
+|           |       `-- 34675_1502440968068_1445528838_1367657_3825311_n.jpg
+|           |-- 17
+|           |   `-- original
+|           |       `-- 34675_1502441048070_1445528838_1367659_1224980_n.jpg
+|           |-- 18
+|           |   `-- original
+|           |       `-- mahesh-babu.JPG
+|           |-- 19
+|           |   `-- original
+|           |       `-- 34675_1502441088071_1445528838_1367660_5959453_n.jpg
+|           |-- 2
+|           |   `-- original
+|           |       `-- DSC05381.JPG
+|           |-- 20
+|           |   `-- original
+|           |       `-- Mahesh_Babu_s_Kaleja_Photos.jpg
+|           |-- 21
+|           |   `-- original
+|           |       `-- Mahesh_Babu_wal16.jpg
+|           |-- 22
+|           |   `-- original
+|           |       `-- 2008-Lamborghini-Gallardo-Superleggera-2.jpg
+|           |-- 23
+|           |   `-- original
+|           |       `-- cars-matching-personalities.jpg
+|           |-- 24
+|           |   `-- original
+|           |       `-- 20050801072301_Wikinews-logo.png
+|           |-- 3
+|           |   `-- original
+|           |       `-- DSC05390.JPG
+|           |-- 4
+|           |   `-- original
+|           |       `-- 2008-Lamborghini-Gallardo-Superleggera-2.jpg
+|           |-- 6
+|           |   `-- original
+|           |       `-- 20050801072301_Wikinews-logo.png
+|           `-- 9
+|               `-- original
+|                   `-- bugatti-veyron-most-expensive-cars_.jpg
+|-- script
+|   |-- about
+|   |-- console
+|   |-- dbconsole
+|   |-- destroy
+|   |-- generate
+|   |-- performance
+|   |   |-- benchmarker
+|   |   |-- profiler
+|   |   `-- request
+|   |-- plugin
+|   |-- process
+|   |   |-- inspector
+|   |   |-- reaper
+|   |   `-- spawner
+|   |-- runner
+|   `-- server
+|-- test
+|   |-- fixtures
+|   |   |-- albums.yml
+|   |   |-- comments.yml
+|   |   |-- friends.yml
+|   |   |-- pictures.yml
+|   |   |-- todos.yml
+|   |   `-- users.yml
+|   |-- functional
+|   |   |-- album_controller_test.rb
+|   |   |-- comment_controller_test.rb
+|   |   |-- friend_controller_test.rb
+|   |   |-- homepage_controller_test.rb
+|   |   |-- pictures_controller_test.rb
+|   |   |-- todo_controller_test.rb
+|   |   `-- user_controller_test.rb
+|   |-- integration
+|   |-- test_helper.rb
+|   `-- unit
+|       |-- album_test.rb
+|       |-- comment_test.rb
+|       |-- friend_test.rb
+|       |-- picture_test.rb
+|       |-- todo_test.rb
+|       `-- user_test.rb
+|-- tmp
+|   |-- cache
+|   |-- picture_tmp
+|   |   |-- #picture_controller.rb#
+|   |   |-- implog
+|   |   |-- picture.rb
+|   |   |-- picture_controller.rb
+|   |   |-- picture_controller.rb~
+|   |   `-- show.html.erb
+|   |-- pids
+|   |-- sessions
+|   `-- sockets
+|-- tree.txt
+`-- vendor
+    `-- plugins
+
+116 directories, 207 files

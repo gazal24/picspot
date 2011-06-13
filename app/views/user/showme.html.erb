@@ -17,15 +17,21 @@
 </td>
 </tr></table>
 
+<% if @albums.blank? %>
+  <h4> No Albums </h4>
+<% else %>
+<h4> Albums [<%= @albums.count%>] </h4>
 <% @albums.each do |a| %>
-<p>  <%= link_to a.name, {:controller => 'album', :action => 'show', :id => a.id} %></p>
+<p>  <%= link_to a.name, {:controller => 'album', :action => 'show', :id => a.id} %>
+  [<%= a.pictures.count%>] </p>
+<% end %>
 <% end %>
 
 <tr><td>
 <% form_tag ({:action => 'create', :controller => 'album'}) do %>
 <p align = left><label for="New Abum">New Album</label>:
   <%= text_field 'album', 'name',{:size => 20} %>
-<%= text_field 'album', 'user_id', {:value => @user.id, :hidden => true} %>
+<%= hidden_field 'album', 'user_id', {:value => @user.id} %>
 <%= submit_tag "Create" %> </p>
 <% end %>
 </td></tr>

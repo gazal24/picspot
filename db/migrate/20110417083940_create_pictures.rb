@@ -3,6 +3,7 @@ class CreatePictures < ActiveRecord::Migration
     create_table :pictures do |t|
       t.integer :album_id
       t.integer :user_id
+      t.column :caption, :string, :limit => 200, :null => true
 
       t.timestamps
     end

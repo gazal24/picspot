@@ -9,7 +9,7 @@
 
 
 <p height = 200><% if @albums.blank? %>
-<p> No Albums :-( </p>
+  <h4> No Albums </h4>
 <% else %>
 <% @albums.each do |a| %>
 <p>  <%= link_to a.name, {:controller => 'album', :action => 'show', :id => a.id} %></p>

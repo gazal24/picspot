@@ -1,42 +1,25 @@
 <table width = 800 align = CENTER>
   <tr align = right>
-    <td>
+    <td></td>    <td>
       <% form_tag ({:action => 'login', :controller => 'user'}) do %>
-      <p><label for="user_email">Email: </label>
+      <label for="user_email">Email: </label>
 	<%= text_field 'user', 'email', {:size => 15} %>
 	<label for="user_email">Password: </label>
-	<%= text_field 'user', 'password', {:size => 15} %>
-      <%= submit_tag "Login" %> </p>
-      <% end %>
+	<%= password_field 'user', 'password', {:size => 15} %>
+	<%= submit_tag "Login" %>
+	<% end %>
     </td>
   </tr>
   <tr>
-    <td>
+    <td><img src = "images/homepage.jpg">
+    </td>
+    <td align = right>
+      <h4>New User ? Sign Up</h4>
       <%= form_tag :action => 'create', :controller => 'user' %>
-      <p><label for="user_name">Name</label>:
-	<%= text_field 'user', 'name' %></p>
-      
-      <p><label for="user_email">Email</label>:
-	<%= text_field 'user', 'email' %></p>
-      
-      <p><label for="user_password">Password</label>:
-	<%= text_field 'user', 'password' %></p>
-      
-      <p><label for="user_confirm_password">Re-Password</label>:
-	<%= text_field 'check', 'repassword' %></p>
-      
-      <p><label for="user_location">Location</label>:
-	<%= text_field 'user', 'location' %></p>
-      
-      <p><label for="user_sex">sex</label>
-	<%= radio_button :user, :sex, :m %> Male
-	<%= radio_button :user, :sex, :f %> Female  
-	
-      <p><label for="user_birthday">Budday</label>  
-	<%=date_select "user", "birthday", :start_year => 1910, 
-	:order => [:day, :month, :year],
-	:end_year => 2010%></p>
-      <p><%= submit_tag "Create" %> </p>
+      <%= render :partial => 'user/form' %> 
+      <tr><td><%= submit_tag "Create" %></td></tr>
+      </table>
+
     </td>
   </tr>
 </table>

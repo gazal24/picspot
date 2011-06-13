@@ -4,5 +4,6 @@ class Picture < ActiveRecord::Base
   belongs_to :user
   has_many :comments
 
-  has_attached_file :photo  
+  has_attached_file :photo
+  validates_presence_of :photo
 end

@@ -41,12 +41,12 @@ class UserController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
+    if @user.save and params[:user]["password"] == params[:check]["repassword"]
       session[:user] = User.authenticate(@user.email, @user.password)
       flash[:notice] = "Signup successful"
       redirect_to :action => 'showme'
     else
-      flash[:error] = "Something is wrong"
+      flash[:error] = "Wrong entry"
       redirect_to :controller => 'homepage', :action => 'index'
     end
   end
@@ -57,9 +57,10 @@ class UserController < ApplicationController
 
   def update
     @user = session[:user]
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(params[:user]) and params[:user]["password"] == params[:check]["repassword"]
       redirect_to :action => 'showme', :controller => 'user'
     else
+      flash[:error] = "Wrong entry"      
       render :action => 'edit'
     end
   end
