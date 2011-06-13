@@ -1,16 +1,22 @@
-.
+/~gq.
 |-- README
 |-- Rakefile
 |-- app
 |   |-- controllers
+|   |   |-- #user_controller.rb#
 |   |   |-- album_controller.rb
+|   |   |-- album_controller.rb~
 |   |   |-- application.rb
 |   |   |-- comment_controller.rb
 |   |   |-- friend_controller.rb
+|   |   |-- friend_controller.rb~
 |   |   |-- homepage_controller.rb
+|   |   |-- homepage_controller.rb~
 |   |   |-- pictures_controller.rb
 |   |   |-- todo_controller.rb
-|   |   `-- user_controller.rb
+|   |   |-- todo_controller.rb~
+|   |   |-- user_controller.rb
+|   |   `-- user_controller.rb~
 |   |-- helpers
 |   |   |-- album_helper.rb
 |   |   |-- application_helper.rb
@@ -21,34 +27,49 @@
 |   |   |-- todo_helper.rb
 |   |   `-- user_helper.rb
 |   |-- models
+|   |   |-- #user.rb#
 |   |   |-- album.rb
+|   |   |-- album.rb~
 |   |   |-- comment.rb
+|   |   |-- comment.rb~
 |   |   |-- friend.rb
+|   |   |-- friend.rb~
 |   |   |-- picture.rb
+|   |   |-- picture.rb~
 |   |   |-- todo.rb
-|   |   `-- user.rb
+|   |   |-- todo.rb~
+|   |   |-- user.rb
+|   |   `-- user.rb~
 |   `-- views
 |       |-- album
 |       |   |-- edit.html.erb
-|       |   `-- show.html.erb
+|       |   |-- show.html.erb
+|       |   `-- show.html.erb~
 |       |-- comment
 |       |-- friend
 |       |-- homepage
-|       |   `-- index.html.erb
+|       |   |-- index.html.erb
+|       |   |-- index.html.erb~
+|       |   `-- list.html.erb~
 |       |-- layouts
 |       |   |-- _error.erb
 |       |   |-- _notice.erb
 |       |   |-- _success.erb
 |       |   |-- pictures.html.erb
-|       |   `-- standard.rhtml
+|       |   |-- standard.rhtml
+|       |   `-- standard.rhtml~
 |       |-- pictures
 |       |   |-- edit.html.erb
 |       |   |-- index.html.erb
 |       |   |-- new.html.erb
-|       |   `-- show.html.erb
+|       |   |-- new.html.erb~
+|       |   |-- show.html.erb
+|       |   `-- show.html.erb~
 |       |-- todo
 |       |   |-- index.html.erb
-|       |   `-- new.html.erb
+|       |   |-- index.html.erb~
+|       |   |-- new.html.erb
+|       |   `-- new.html.erb~
 |       `-- user
 |           |-- _follow.erb
 |           |-- _form.erb
@@ -61,6 +82,7 @@
 |-- config
 |   |-- boot.rb
 |   |-- database.yml
+|   |-- database.yml~
 |   |-- environment.rb
 |   |-- environments
 |   |   |-- development.rb
@@ -71,7 +93,6 @@
 |   |   |-- mime_types.rb
 |   |   `-- new_rails_defaults.rb
 |   `-- routes.rb
-|-- datadump
 |-- db
 |   |-- migrate
 |   |   |-- 20110403171208_users.rb
@@ -207,64 +228,6 @@
 |   |   `-- style.css
 |   `-- system
 |       `-- photos
-|           |-- 1
-|           |   `-- original
-|           |       |-- DSC05377.JPG
-|           |       `-- DSC05378.JPG
-|           |-- 11
-|           |   `-- original
-|           |       `-- hyundaiI10222.jpg
-|           |-- 12
-|           |   `-- original
-|           |       `-- DSC05376.JPG
-|           |-- 13
-|           |   `-- original
-|           |       `-- DSC05378.JPG
-|           |-- 14
-|           |   `-- original
-|           |       `-- DSC05380.JPG
-|           |-- 15
-|           |   `-- original
-|           |       `-- 34675_1502440968068_1445528838_1367657_3825311_n.jpg
-|           |-- 17
-|           |   `-- original
-|           |       `-- 34675_1502441048070_1445528838_1367659_1224980_n.jpg
-|           |-- 18
-|           |   `-- original
-|           |       `-- mahesh-babu.JPG
-|           |-- 19
-|           |   `-- original
-|           |       `-- 34675_1502441088071_1445528838_1367660_5959453_n.jpg
-|           |-- 2
-|           |   `-- original
-|           |       `-- DSC05381.JPG
-|           |-- 20
-|           |   `-- original
-|           |       `-- Mahesh_Babu_s_Kaleja_Photos.jpg
-|           |-- 21
-|           |   `-- original
-|           |       `-- Mahesh_Babu_wal16.jpg
-|           |-- 22
-|           |   `-- original
-|           |       `-- 2008-Lamborghini-Gallardo-Superleggera-2.jpg
-|           |-- 23
-|           |   `-- original
-|           |       `-- cars-matching-personalities.jpg
-|           |-- 24
-|           |   `-- original
-|           |       `-- 20050801072301_Wikinews-logo.png
-|           |-- 3
-|           |   `-- original
-|           |       `-- DSC05390.JPG
-|           |-- 4
-|           |   `-- original
-|           |       `-- 2008-Lamborghini-Gallardo-Superleggera-2.jpg
-|           |-- 6
-|           |   `-- original
-|           |       `-- 20050801072301_Wikinews-logo.png
-|           `-- 9
-|               `-- original
-|                   `-- bugatti-veyron-most-expensive-cars_.jpg
 |-- script
 |   |-- about
 |   |-- console
@@ -314,7 +277,6 @@
 |   |   |-- implog
 |   |   |-- picture.rb
 |   |   |-- picture_controller.rb
-|   |   |-- picture_controller.rb~
 |   |   `-- show.html.erb
 |   |-- pids
 |   |-- sessions
@@ -323,4 +285,4 @@
 `-- vendor
     `-- plugins
 
-116 directories, 207 files
+78 directories, 207 files
